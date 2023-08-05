@@ -23,10 +23,9 @@ public class CameraController : MonoBehaviour
         yaw += speedYaw * Input.GetAxis("Mouse X");
         pitch -= speedPitch * Input.GetAxis("Mouse Y");
 
-/*        yaw = Mathf.Clamp(yaw, -90f, 90f);
         //the rotation range
+        yaw = Mathf.Clamp(yaw, -90f, 90f);      
         pitch = Mathf.Clamp(pitch, -60f, 90f);
-        //the rotation range*/
 
         var newAngle = new Vector3(pitch, yaw, 0.0f);
         transform.eulerAngles = newAngle;
