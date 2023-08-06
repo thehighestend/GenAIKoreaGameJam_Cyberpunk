@@ -33,6 +33,7 @@ public class Title : MonoBehaviour
         if(!isStartingGame && Input.GetKeyDown(KeyCode.Return))
         {
             isStartingGame = true;
+            BGMManager.Instance.FadeOutMusic();
             FadeManager.Instance.FadeAndLoadScene("MapScene", 2, () => BGMManager.Instance.Play(2));
         }
     }
