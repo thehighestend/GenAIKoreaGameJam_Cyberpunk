@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
+using System;
 
 public class FadeManager : MonoBehaviour
 {
@@ -46,12 +47,12 @@ public class FadeManager : MonoBehaviour
         DontDestroyOnLoad(_instance.gameObject);
     }
 
-    public void FadeAndLoadScene(string sceneName, float changeTime = 2f)
+    public void FadeAndLoadScene(string sceneName, float changeTime = 2f, Action callback = null)
     {
-        StartCoroutine(FadeSceneChange(sceneName, changeTime));
+        StartCoroutine(FadeSceneChange(sceneName, changeTime, callback));
     }
 
-    IEnumerator FadeSceneChange(string sceneName, float changeTime)
+    IEnumerator FadeSceneChange(string sceneName, float changeTime, Action callback = null)
     {
         yield return null;
 
@@ -78,6 +79,8 @@ public class FadeManager : MonoBehaviour
             // Check if the load has finished
             if (asyncOperation.progress >= 0.9f)
             {
+                callback?.Invoke();
+
                 // Fade In
                 _canvasGroup.alpha = 1f;
 

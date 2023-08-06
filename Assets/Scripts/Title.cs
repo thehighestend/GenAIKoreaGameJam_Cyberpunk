@@ -9,7 +9,7 @@ public class Title : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        BGMManager.Instance.Play(0);
     }
 
     public void OpenGitHubTHE()
@@ -33,7 +33,7 @@ public class Title : MonoBehaviour
         if(!isStartingGame && Input.GetKeyDown(KeyCode.Return))
         {
             isStartingGame = true;
-            FadeManager.Instance.FadeAndLoadScene("MapScene");
+            FadeManager.Instance.FadeAndLoadScene("MapScene", 2, () => BGMManager.Instance.Play(2));
         }
     }
 }
