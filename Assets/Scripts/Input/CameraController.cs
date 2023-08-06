@@ -28,7 +28,6 @@ public class CameraController : MonoBehaviour
         pitch = Mathf.Clamp(pitch, -90f, 90f);
 
         var newAngle = new Vector3(pitch, yaw, 0.0f);
-        Debug.LogError($"newAngle: ({newAngle.x},{newAngle.y})");
         transform.eulerAngles = newAngle;
         var cameraFront = new Vector3(transform.forward.x, 0f, transform.forward.z).normalized;
         /*characterTransform.forward = cameraFront;*/
