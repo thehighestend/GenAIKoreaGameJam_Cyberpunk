@@ -33,6 +33,12 @@ public class BGMManager : MonoBehaviour
 
     private void Awake()
     {
+        if (m_instance != null)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
         m_instance = this;
         DontDestroyOnLoad(this.gameObject);
 
@@ -110,7 +116,7 @@ public class BGMManager : MonoBehaviour
     public void FadeOutMusic()
     {
         StopAllCoroutines();
-        StartCoroutine(FadeOutMusicCoroutine());
+        StartCoroutine(FadeOutMusicCoroutine(source.volume));
     }
 
     IEnumerator FadeOutMusicCoroutine(float changeTime = 1.0f)

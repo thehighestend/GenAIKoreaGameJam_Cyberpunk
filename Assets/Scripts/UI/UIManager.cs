@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Misc")]
     [SerializeField] GameObject _returnToMissionArea;
-
+    [SerializeField] GameObject _exitPopup;
 
     private Coroutine _videoPlaybackCoroutine = null;
 
@@ -45,7 +45,7 @@ public class UIManager : MonoBehaviour
         _videoPlayer.Play();
 
         _closedCaption.text = $"<mark=#000000AA>{caption}</mark>";
-        Debug.LogWarning($"caption: {caption}");
+
         while (!_videoPlayer.isPrepared || _videoPlayer.isPlaying)
         {
             yield return null;
@@ -72,6 +72,16 @@ public class UIManager : MonoBehaviour
         _videoPlaybackCoroutine = null;
     }
 
+    public void UpdateObjectiveUI()
+    {
+        _objectiveController.CheckObjectiveStatus();
+    }
+
+    public void SetRTMActive(bool active)
+    {
+        _returnToMissionArea.SetActive(active);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -81,6 +91,17 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            _exitPopup.SetActive(!_exitPopup.activeSelf);
+        }
+        else if(_exitPopup.activeSelf && Input.GetKeyDown(KeyCode.Return))
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        }
     }
 }

@@ -1,18 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ObjectiveController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private TextMeshProUGUI[] _objectives;
 
-    // Update is called once per frame
-    void Update()
+    private bool FirstObjectiveComplete = false;
+
+    public void CheckObjectiveStatus()
     {
-        
+        if (!FirstObjectiveComplete && !NPCManager.Instance.CheckNPCObjectiveStatus())
+            return;
+
+        FirstObjectiveComplete = true;
+
+        _objectives[0].color = Color.gray;
+        _objectives[0].text = $"<s>{_objectives[0].text}</s>";
+
+        _objectives[1].gameObject.SetActive(true);
     }
 }

@@ -43,6 +43,12 @@ public class FadeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(_instance != null )
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
         _instance = this;
         DontDestroyOnLoad(_instance.gameObject);
     }

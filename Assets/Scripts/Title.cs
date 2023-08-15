@@ -34,7 +34,15 @@ public class Title : MonoBehaviour
         {
             isStartingGame = true;
             BGMManager.Instance.FadeOutMusic();
-            FadeManager.Instance.FadeAndLoadScene("MapScene", 2, () => BGMManager.Instance.Play(2));
+            FadeManager.Instance.FadeAndLoadScene("MapScene", 2, () => BGMManager.Instance.Play(2, 0.3f));
+        }
+        else if(Input.GetKeyDown(KeyCode.Escape))
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
         }
     }
 }
